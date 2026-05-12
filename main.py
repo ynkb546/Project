@@ -316,29 +316,29 @@ def main():
              font=("Segoe UI", 9, "italic"), fg="#9e9e9e", bg="#1a1c1e").pack(pady=8)
 
     menu = [
-        ("1. Диаграмма: Доли распределения", lambda: (plt.figure(figsize=(7, 5)),
+        ("1. Доли распределения", lambda: (plt.figure(figsize=(7, 5)),
                                                       plt.pie([metrics['total_weight'], metrics['total_packs']],
                                                               labels=['Вес', 'Пачки'], autopct='%1.1f%%',
                                                               colors=['#5865F2', '#F47B67']), plt.show()), "#3a3f44",
          "#4e545c"),
-        ("2. Гистограмма: Топ-5 Пачки", lambda: (plt.figure(figsize=(10, 5)),
+        ("2. Топ-5 Пачки", lambda: (plt.figure(figsize=(10, 5)),
                                                  sns.barplot(x='Количество', y='Наименование товара',
                                                              data=metrics['top_packs'], palette='viridis'), plt.show()),
          "#3a3f44", "#4e545c"),
-        ("3. Гистограмма: Топ-5 Вес", lambda: (plt.figure(figsize=(10, 5)),
+        ("3. Топ-5 Вес", lambda: (plt.figure(figsize=(10, 5)),
                                                sns.barplot(x='Количество', y='Наименование товара',
                                                            data=metrics['top_weight'], palette='magma'), plt.show()),
          "#3a3f44", "#4e545c"),
-        ("4. Plotly: Динамика продаж",
+        ("4. Динамика продаж",
          lambda: px.line(metrics['plotly_weekly'], x='Дата', y='Количество', color='Наименование товара').show(),
          "#3a3f44", "#4e545c"),
-        ("5. Таблица: Отчет по неделям",
+        ("5. Отчет по неделям",
          lambda: show_treeview_window(root, w_series.reset_index(), "Еженедельные объемы"), "#2c3e50", "#34495e"),
-        ("6. Сравнение стратегий (Матрица)",
+        ("6. Сравнение стратегий ",
          lambda: show_treeview_window(root, pd.DataFrame(comp_data), "Сравнение квантилей"), "#b7950b", "#d4ac0d"),
         (f"7. Оптимальный прогноз (Квантиль {best_n})",
          lambda: show_treeview_window(root, state['df'], f"Детализация модели {best_n}"), "#27ae60", "#2ecc71"),
-        ("8. СИМУЛИРОВАТЬ СЛЕДУЮЩУЮ НЕДЕЛЮ", lambda: add_interactive_week(root), "#2980b9", "#3498db")
+        ("8. Прогноз на следующую неделю", lambda: add_interactive_week(root), "#2980b9", "#3498db")
     ]
 
     for txt, cmd, bg, hov in menu:
@@ -348,7 +348,7 @@ def main():
         b.bind("<Enter>", lambda e, h=hov, btn=b: btn.config(bg=h))
         b.bind("<Leave>", lambda e, n=bg, btn=b: btn.config(bg=n))
 
-    tk.Button(root, text="ЗАКРЫТЬ ПРОЕКТ", command=root.destroy, width=22, bd=0, font=("Segoe UI", 9, "bold"),
+    tk.Button(root, text="Закрыть", command=root.destroy, width=22, bd=0, font=("Segoe UI", 9, "bold"),
               fg="#ffffff", bg="#c0392b", activebackground="#e74c3c", cursor="hand2").pack(pady=15)
 
     root.mainloop()
